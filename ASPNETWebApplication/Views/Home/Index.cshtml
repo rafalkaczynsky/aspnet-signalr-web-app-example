@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h1>SignalR Example </h1>
+
+<div id="welcome-messages"></div>
+
+<input id="chat-input" type="text" placeholder="Type text here"/>
+
+<div id="chat-messages"></div>
+<button id="super-button">Send</button>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Scripts/SignalR.js"></script>
+}
