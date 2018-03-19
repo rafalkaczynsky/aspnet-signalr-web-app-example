@@ -8,11 +8,12 @@ namespace ASPNETWebApplication
 {
     public class MyFirstHub : Hub
     {
-        public void Announce(string message)
-        {
-            Clients.All.Announce(message);
 
-            
+ 
+        public void Send(string name, string message)
+        {
+            //Call the broadcast method to update clients,
+            Clients.All.broadcastMessage(name, message);
         }
     }
 }

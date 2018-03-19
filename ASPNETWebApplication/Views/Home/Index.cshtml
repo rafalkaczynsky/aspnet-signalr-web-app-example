@@ -3,14 +3,18 @@
 }
 
 <h1>SignalR Example </h1>
-
+<h3 >UserName: <strong id="username"></strong></h3>
 <div id="welcome-messages"></div>
 
-<input id="chat-input" type="text" placeholder="Type text here"/>
 
-<div id="chat-messages"></div>
-<button id="super-button">Send</button>
+<div class="container" style="background-color:aquamarine; border: ridge solid grey; padding: 40px;">
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send"/>
+    <input type="hidden" id="displayname" />
+    <ul id="discussion">
 
+    </ul> 
+</div>
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
     <script src="~/signalr/js"></script>
