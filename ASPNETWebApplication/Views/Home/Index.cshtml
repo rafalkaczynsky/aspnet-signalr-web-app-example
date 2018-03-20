@@ -3,6 +3,7 @@
 }
 
 <div id="chat-area">
+    <h2>Chat area</h2>
     <ul id="messages">
     </ul>
     <ul id="users">
@@ -12,11 +13,27 @@
         <input type="text" id="new-message" />
         <input type="submit" id="send" value="Send" class="send" />
     </form>
+ 
 </div>
 @section scripts {
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/json2.js"></script>
+    <script src="~/Scripts/signalr.samples.js"></script>
+    <script src="~/Scripts/signalr.samples.js"></script>
     <script src="~/Scripts/jQuery.cookie.js"></script>
-    <script src="~/Scripts/jQuery.tmpl.js"></script>
+    <script src="~/Scripts/jQuery.tmpl.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
     <script src="~/signalr/js"></script>
     <script src="~/Scripts/SignalR.js"></script>
+    <script id="new-user-template" type="text/x-jquery-tmpl">
+        <li class="user" id="u-${name}">
+            <img src="http://ireview.live/img/no-user.png" width="30" height="30"class="avatar"/> ${name}
+        </li>
+    </script>
+    <script id="new-message-template" type="text/x-jquery-tmpl">
+        <li class="message" id="m-${id}">
+            <strong>${name}:</strong>
+            {{html message}}
+        </li>
+    </script>
 }
