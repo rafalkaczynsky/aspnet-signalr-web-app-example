@@ -2,20 +2,20 @@
     ViewBag.Title = "Home Page";
 }
 
-<h1>SignalR Example </h1>
-<h3 >UserName: <strong id="username"></strong></h3>
-<div id="welcome-messages"></div>
-
-
-<div class="container" style="background-color:aquamarine; border: ridge solid grey; padding: 40px;">
-    <input type="text" id="message" />
-    <input type="button" id="sendmessage" value="Send"/>
-    <input type="hidden" id="displayname" />
-    <ul id="discussion">
-
-    </ul> 
+<div id="chat-area">
+    <ul id="messages">
+    </ul>
+    <ul id="users">
+    </ul>
+    <div class="clear"></div>
+    <form id="send-message" action="#">
+        <input type="text" id="new-message" />
+        <input type="submit" id="send" value="Send" class="send" />
+    </form>
 </div>
 @section scripts {
+    <script src="~/Scripts/jQuery.cookie.js"></script>
+    <script src="~/Scripts/jQuery.tmpl.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
     <script src="~/signalr/js"></script>
     <script src="~/Scripts/SignalR.js"></script>

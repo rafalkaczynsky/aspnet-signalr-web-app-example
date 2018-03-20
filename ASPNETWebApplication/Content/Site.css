@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-size: 13px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,75 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+#messages
+{
+    width: 70%;
+    border: 1px solid #ccc;
+    height: 500px;
+    float: left;
+    overflow: auto;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+#messages li
+{
+    list-style-type: none;
+    padding: 3px;
+}
+
+#users
+{
+    width: 17%;
+    height: 500px;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+    font-size: small;
+    white-space: nowrap;
+}
+
+#users li
+{
+    padding: 4px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+#new-message
+{
+    font-family: Trebuchet MS;
+    width: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.error 
+{
+    color:Red;
+}
+
+.pm
+{
+    color:Red;
+}
+
+.notification
+{
+    color:#bbb;
+}
+
+.message
+{
+    
 }
