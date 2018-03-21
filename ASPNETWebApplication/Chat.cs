@@ -171,6 +171,53 @@ namespace Chat
             .Select(b => b.ToString("x2")));
         }
 
+
+        public void SetUser(string UserName)
+        {
+            string name = Clients.Caller.name;
+
+            if (!_users.ContainsKey(UserName))
+            {
+                if (String.IsNullOrEmpty(name) || !_users.ContainsKey(name))
+                {
+                    AddUser(UserName);
+                }
+                else
+                {
+                    var oldUser = _users[name];
+                    var newUser = new ChatUser
+                    {
+                        Name = UserName,
+                        Hash = GetMD5Hash(UserName),
+                        Id = oldUser.Id,
+                        ConnectionId = oldUser.ConnectionId
+                    };
+
+                    _users[UserName] = newUser;
+                    _userRooms[UserName] = new HashSet<string>(_userRooms[name]);
+
+                    if (_userRooms[name].Any())
+                    {
+                        foreach (var r in _userRooms[name])
+                        {
+                            _rooms[r].Users.Remove(name);
+                            _rooms[r].Users.Add(UserName);
+                            Clients.Group(r).changeUserName(oldUser, newUser);
+                        }
+                    }
+                    HashSet<string> ignoredRoom;
+                    ChatUser ignoredUser;
+                    _userRooms.TryRemove(name, out ignoredRoom);
+                    _users.TryRemove(name, out ignoredUser);
+
+                    Clients.Caller.hash = newUser.Hash;
+                    Clients.Caller.name = newUser.Name;
+
+                    Clients.Caller.changeUserName(oldUser, newUser);
+                }
+            }
+        }
+            
         private bool TryHandleCommand(string message)
         {
             string room = Clients.Caller.room;

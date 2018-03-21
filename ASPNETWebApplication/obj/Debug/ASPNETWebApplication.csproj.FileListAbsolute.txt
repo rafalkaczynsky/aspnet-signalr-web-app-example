@@ -83,4 +83,3 @@ C:\Users\magda\documents\visual studio 2015\Projects\ASPNETWebApplication\ASPNET
 C:\Users\magda\documents\visual studio 2015\Projects\ASPNETWebApplication\ASPNETWebApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\magda\documents\visual studio 2015\Projects\ASPNETWebApplication\ASPNETWebApplication\obj\Debug\ASPNETWebApplication.dll
 C:\Users\magda\documents\visual studio 2015\Projects\ASPNETWebApplication\ASPNETWebApplication\obj\Debug\ASPNETWebApplication.pdb
-C:\Users\magda\documents\visual studio 2015\Projects\ASPNETWebApplication\ASPNETWebApplication\obj\Debug\ASPNETWebApplication.csprojResolveAssemblyReference.cache

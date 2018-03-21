@@ -65,6 +65,8 @@ $(function () {
         }
     };
 
+
+
     chat.client.addMessageContent = function (id, content) {
         var e = $('#m-' + id).append(content);
         refreshMessages();
@@ -88,7 +90,6 @@ $(function () {
 
     chat.client.addUser = function (user, exists) {
        
-
         var id = 'u-' + user.Name;
         if (document.getElementById(id)) {
             return;
@@ -147,6 +148,7 @@ $(function () {
         }
     };
 
+
     $('#send-message').submit(function () {
         var command = $('#new-message').val();
 
@@ -194,13 +196,18 @@ $(function () {
         $.cookie('userid', chat.state.id, { path: '/', expires: 30 });
     }
 
-    addMessage('Welcome to the SignalR IRC clone', 'notification');
+    addMessage('"Welcome ' + $('#displayname').val(), 'notification');
+
+    console.log(chat.state.name);
 
     $('#new-message').val('');
     $('#new-message').focus();
 
     $.connection.hub.logging = true;
     $.connection.hub.start({ transport: activeTransport }, function () {
+
+        chat.server.setUser($('#displayname').val());
+
         chat.server.join()
             .done(function (success) {
                 console.log(this.state);
