@@ -17,13 +17,31 @@ $(function () {
         $('#users').html('');
     }
 
-    function refreshUsers() { refreshList($('#users')); }
+    function refreshUsers() { 
+        refreshList($('#users')); 
+    }
 
     function refreshList(list) {
         if (list.is('.ui-listview')) {
             list.listview('refresh');
         }
     }
+
+    function clearRooms() {
+        $('#rooms').html('');
+    }
+
+    function refreshRooms() {
+        refreshList($('#rooms'));
+    }
+
+    function redirectToRoom(newRoomName) {
+        alert(newRoomName);
+        console.log(newRoomName);
+        chat.server.changeRoom(newRoomName);
+    }
+
+
 
     function addMessage(content, type) {
         var e = $('<li/>').html(content).appendTo($('#messages'));
@@ -62,6 +80,33 @@ $(function () {
             $.each(rooms, function () {
                 addMessage(this.Name + ' (' + this.Count + ')');
             });
+        }
+    };
+
+    chat.client.showRoomsOnSide = function (rooms) {
+        clearRooms();
+        refreshRooms();
+        if (!rooms.length) {
+            var e = $('#rooms').append("No rooms available!");
+        }
+        else {
+            $.each(rooms, function () {
+
+                var data = {
+                    name: this.Name,
+                    count: this.Count,
+                }
+
+                var e = $('#new-room-template').tmpl(data)
+                               .appendTo($('#rooms'));
+
+                $("#r-" + this.Name).click(function () {
+                    var newRoomName = this.id.substring(2);
+                    redirectToRoom(newRoomName);
+                })
+            });
+
+
         }
     };
 
@@ -196,26 +241,44 @@ $(function () {
         $.cookie('userid', chat.state.id, { path: '/', expires: 30 });
     }
 
-    addMessage('"Welcome ' + $('#displayname').val(), 'notification');
+    addMessage('Welcome ' + $('#displayname').val(), 'notification');
+    
+    // Add new room 
+    $('#add-new-room').click(function () {
+        $('#create-room').css("display", "block");
+        $('#add-new-room').css("display", "none");
+  
+    });
 
-    console.log(chat.state.name);
+    $('#create-new-room').click(function () {
+        $('#create-room').css("display", "none");
+        $('#add-new-room').css("display", "block");
+        // do something 
+        console.log(($("#new-room-name").val()));
+        console.log('Create new room clicked!')
+        chat.server.addNewRoom($("#new-room-name").val());
+
+
+    });
 
     $('#new-message').val('');
     $('#new-message').focus();
+
 
     $.connection.hub.logging = true;
     $.connection.hub.start({ transport: activeTransport }, function () {
 
         chat.server.setUser($('#displayname').val());
+        chat.server.initialDisplayAllRooms();
 
         chat.server.join()
             .done(function (success) {
                 console.log(this.state);
                 if (success === false) {
                     $.cookie('userid', '');
-                    addMessage('Choose a name using "/nick nickname".', 'notification');
+                    
                 }
-                addMessage('After that, you can view rooms using "/rooms" and join a room using "/join roomname".', 'notification');
+                addMessage('You can view rooms using "/rooms" and join a room using "/join roomname".', 'notification');
             });
     });
 });

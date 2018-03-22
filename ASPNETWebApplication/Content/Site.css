@@ -27,7 +27,7 @@ textarea {
 
 #messages
 {
-    width: 70%;
+    width: 60%;
     border: 1px solid #ccc;
     height: 500px;
     float: left;
@@ -44,7 +44,21 @@ textarea {
 
 #users
 {
-    width: 17%;
+    width: 14%;
+    height: 500px;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+    font-size: small;
+    white-space: nowrap;
+}
+#rooms
+{
+    width: 13%;
     height: 500px;
     border-right: 1px solid #ccc;
     border-top: 1px solid #ccc;
@@ -62,6 +76,12 @@ textarea {
     padding: 4px;
 }
 
+#rooms li
+{
+    padding: 4px;
+}
+
+
 .clear
 {
     clear: both;
@@ -71,6 +91,26 @@ textarea {
 {
     font-family: Trebuchet MS;
     width: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+#add-new-room 
+{
+    margin-bottom: 40px;    
+    display: none;
+    display: block!important;
+}
+
+#create-room
+{
+    margin-bottom: 40px; 
+    display: none;
+}
+
+#new-room-name
+{
+    font-family: Trebuchet MS;
     padding: 5px;
     border: 1px solid #ccc;
 }
@@ -92,10 +132,13 @@ textarea {
 
 .message
 {
-    
+
+    padding: 5px;
+
 }
 
 .avatar {
     width:  40px;
     height: 40px;
 }
+

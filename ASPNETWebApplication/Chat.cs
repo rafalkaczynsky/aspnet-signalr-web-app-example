@@ -10,6 +10,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
+
+
 using Chat.ContentProviders;
 using Microsoft.AspNet.SignalR;
 
@@ -23,10 +26,10 @@ namespace Chat
         private static readonly ConcurrentDictionary<string, ChatRoom> _rooms = new ConcurrentDictionary<string, ChatRoom>(StringComparer.OrdinalIgnoreCase);
 
         private static readonly List<IContentProvider> _contentProviders = new List<IContentProvider>() {
- new ImageContentProvider(),
- new YouTubeContentProvider(),
- new CollegeHumorContentProvider()
- };
+            new ImageContentProvider(),
+            new YouTubeContentProvider(),
+            new CollegeHumorContentProvider()
+        };
 
         public bool Join()
         {
@@ -171,7 +174,7 @@ namespace Chat
             .Select(b => b.ToString("x2")));
         }
 
-
+        // can be used in react-native-app
         public void SetUser(string UserName)
         {
             string name = Clients.Caller.name;
@@ -217,7 +220,129 @@ namespace Chat
                 }
             }
         }
-            
+
+        //can be used in react-native app
+        public bool initialDisplayAllRooms()
+        {
+            var rooms = _rooms.Select(r => new
+            {
+                Name = r.Key,
+                Count = r.Value.Users.Count
+            });
+
+            Clients.Caller.showRoomsOnSide(rooms);
+
+            return true;
+        }
+
+        //can be used in react-native app 
+
+        public void changeRoom(string newRoomName)
+        {
+            string room = Clients.Caller.room;
+            string name = Clients.Caller.name;
+
+            ChatRoom chatRoom;
+            // Create the room if it doesn't exist
+            if (!_rooms.TryGetValue(newRoomName, out chatRoom))
+            {
+                chatRoom = new ChatRoom();
+                _rooms.TryAdd(newRoomName, chatRoom);
+            }
+
+            // Remove the old room
+            if (!String.IsNullOrEmpty(room))
+            {
+                _userRooms[name].Remove(room);
+                _rooms[room].Users.Remove(name);
+
+                Clients.Group(room).leave(_users[name]);
+                Groups.Remove(Context.ConnectionId, room);
+            }
+
+
+            _userRooms[name].Add(newRoomName);
+            if (!chatRoom.Users.Add(name))
+            {
+                throw new InvalidOperationException("You're already in that room!");
+            }
+
+            Clients.Group(newRoomName).addUser(_users[name]);
+
+            // Set the room on the caller
+            Clients.Caller.room = newRoomName;
+
+            Groups.Add(Context.ConnectionId, newRoomName);
+
+            Clients.Caller.refreshRoom(newRoomName);
+
+            //rooms list needs to be apdated
+
+
+            Clients.Caller.refreshRoom(newRoomName);
+
+            // Update all clients room list 
+            var rooms = _rooms.Select(r => new
+            {
+                Name = r.Key,
+                Count = r.Value.Users.Count
+            });
+
+            Clients.All.showRoomsOnSide(rooms);
+        } 
+
+        // can be used in react-native app
+        public void AddNewRoom(string newRoomName)
+        {
+   
+            string room = Clients.Caller.room;
+            string name = Clients.Caller.name;
+
+     
+            ChatRoom chatRoom;
+            // Create the room if it doesn't exist
+            if (!_rooms.TryGetValue(newRoomName, out chatRoom))
+            {
+                chatRoom = new ChatRoom();
+                _rooms.TryAdd(newRoomName, chatRoom);
+            }
+
+            // Remove the old room
+            if (!String.IsNullOrEmpty(room))
+            {
+                _userRooms[name].Remove(room);
+                _rooms[room].Users.Remove(name);
+
+                Clients.Group(room).leave(_users[name]);
+                Groups.Remove(Context.ConnectionId, room);
+            }
+
+            _userRooms[name].Add(newRoomName);
+            if (!chatRoom.Users.Add(name))
+            {
+                throw new InvalidOperationException("You're already in that room!");
+            }
+
+            Clients.Group(newRoomName).addUser(_users[name]);
+
+            // Set the room on the caller
+            Clients.Caller.room = newRoomName;
+
+            Groups.Add(Context.ConnectionId, newRoomName);
+
+            Clients.Caller.refreshRoom(newRoomName);
+
+            // Update all clients room list 
+            var rooms = _rooms.Select(r => new
+            {
+                Name = r.Key,
+                Count = r.Value.Users.Count
+            });
+
+            Clients.All.showRoomsOnSide(rooms);
+        }
+
+
         private bool TryHandleCommand(string message)
         {
             string room = Clients.Caller.room;

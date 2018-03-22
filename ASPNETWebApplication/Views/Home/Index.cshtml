@@ -4,9 +4,16 @@
 
 <div id="chat-area">
     <h2>Chat area</h2>
+    <button id="add-new-room" style="display: block!important;">Add New Room</button>
+    <div id="create-room">
+        <input type="text" placeholder="Type name of new room" id="new-room-name"/>
+        <button id="create-new-room" >Create New Room</button>
+    </div>
     <ul id="messages">
     </ul>
     <ul id="users">
+    </ul>
+    <ul id="rooms">
     </ul>
     <div class="clear"></div>
     <form id="send-message" action="#">
@@ -36,5 +43,10 @@
             <strong>${name}:</strong>
             {{html message}}
         </li>
+    </script>
+    <script id="new-room-template" type="text/x-jquery-tmpl">
+        <li class="room" id="r-${name}">
+             ${name}(${count})
+         </li>
     </script>
 }
