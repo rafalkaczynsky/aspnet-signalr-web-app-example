@@ -31,6 +31,11 @@ namespace Chat
             new CollegeHumorContentProvider()
         };
 
+        public void testMethod()
+        {
+            Clients.Caller.testMethod();
+        }
+
         public bool Join()
         {
             // Check the user id cookie

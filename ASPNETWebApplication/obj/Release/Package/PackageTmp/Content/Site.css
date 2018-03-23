@@ -1,0 +1,144 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size: 13px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+#messages
+{
+    width: 60%;
+    border: 1px solid #ccc;
+    height: 500px;
+    float: left;
+    overflow: auto;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+#messages li
+{
+    list-style-type: none;
+    padding: 3px;
+}
+
+#users
+{
+    width: 14%;
+    height: 500px;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+    font-size: small;
+    white-space: nowrap;
+}
+#rooms
+{
+    width: 13%;
+    height: 500px;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+    font-size: small;
+    white-space: nowrap;
+}
+
+#users li
+{
+    padding: 4px;
+}
+
+#rooms li
+{
+    padding: 4px;
+}
+
+
+.clear
+{
+    clear: both;
+}
+
+#new-message
+{
+    font-family: Trebuchet MS;
+    width: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+#add-new-room 
+{
+    margin-bottom: 40px;    
+    display: none;
+    display: block!important;
+}
+
+#create-room
+{
+    margin-bottom: 40px; 
+    display: none;
+}
+
+#new-room-name
+{
+    font-family: Trebuchet MS;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.error 
+{
+    color:Red;
+}
+
+.pm
+{
+    color:Red;
+}
+
+.notification
+{
+    color:#bbb;
+}
+
+.message
+{
+
+    padding: 5px;
+
+}
+
+.avatar {
+    width:  40px;
+    height: 40px;
+}
+
